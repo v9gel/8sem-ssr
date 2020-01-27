@@ -1,0 +1,39 @@
+Датасет 2. Сколько реплик у Джульетты? - 118
+
+[{$match: {
+  _id: "Romeo and Juliet"
+}}, {$unwind: {
+  path: "$acts"
+}}, {$replaceRoot: {
+  newRoot: "$acts"
+}}, {$unwind: {
+  path: "$scenes"
+}}, {$replaceRoot: {
+  newRoot: '$scenes'
+}}, {$unwind: {
+  path: "$action"
+}}, {$replaceRoot: {
+  newRoot: "$action"
+}}, {$match: {
+  character: "JULIET"
+}}, {$count: 'yulietSaysCount'}]
+
+Датасет 2. Количество персонажей в "Отелло"? - 28
+
+[{$match: {
+  _id: "Othello, the Moore of Venice"
+}}, {$unwind: {
+  path: "$acts"
+}}, {$replaceRoot: {
+  newRoot: "$acts"
+}}, {$unwind: {
+  path: "$scenes"
+}}, {$replaceRoot: {
+  newRoot: '$scenes'
+}}, {$unwind: {
+  path: "$action"
+}}, {$replaceRoot: {
+  newRoot: "$action"
+}}, {$group: {
+  _id: "$character"
+}}, {$count: 'characterCount'}]
