@@ -1,0 +1,25 @@
+footer{
+    margin-top: 25px; 
+    background-color: #ca1d61;
+    color: #fff;
+}
+
+.btn-primary{
+    background-color: #ca1d61;
+    border-color: #ca1d61
+}
+
+.btn-primary:hover{
+    background-color: #a9114d
+}
+
+.btn-primary:not(:disabled):not(.disabled):active{
+    background-color: #a9114d
+}
+.footer-copyright a{
+    color: #fff;
+}
+
+.text-uppercase:first-letter { 
+    color: #333;
+ }
