@@ -1,0 +1,14 @@
+mixin project(project, isAdmin)
+    .row
+        .col-md-7
+            a(href='/project/' + project.id)
+                img.img-fluid.rounded.mb-3.mb-md-0(src=project.picture, alt=project.name)
+        .col-md-5
+            h3= project.name
+            p= project.body
+            if !isAdmin
+                a.btn.btn-primary(href='/project/' + project.id) Подробнее
+            if isAdmin
+                a.btn.btn-primary(href='/project/' + project.id + '/edit') Изменить
+                a.btn.btn-dark(href='/project/' + project.id + '/delete') Удалить
+    hr

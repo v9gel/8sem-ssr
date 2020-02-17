@@ -1,5 +1,11 @@
 extends layout
+include  mixins
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1.my-4
+    if !isAdmin
+      | Проекты
+    if isAdmin
+      | Админка
+    small
+  +project({id: 1, name: 'я12', body: 'аоао'}, isAdmin)
