@@ -8,4 +8,5 @@ block content
     if isAdmin
       | Админка
     small
-  +project({id: 1, name: 'я12', body: 'аоао'}, isAdmin)
+  each project in projects
+    +project(project, isAdmin)

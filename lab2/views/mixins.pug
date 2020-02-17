@@ -7,8 +7,8 @@ mixin project(project, isAdmin)
             h3= project.name
             p= project.body
             if !isAdmin
-                a.btn.btn-primary(href='/project/' + project.id) Подробнее
+                a.btn.btn-primary(href='/projects/' + project.id) Подробнее
             if isAdmin
-                a.btn.btn-primary(href='/project/' + project.id + '/edit') Изменить
-                a.btn.btn-dark(href='/project/' + project.id + '/delete') Удалить
+                a.btn.btn-primary(href='/projects/' + project.id + '/edit') Изменить
+                a.btn.btn-dark(href='/projects/' + project.id + '/delete') Удалить
     hr

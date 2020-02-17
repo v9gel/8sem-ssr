@@ -11,7 +11,7 @@ var projects = [
         levels: 2,
         materialId: 1,
         square: 100,
-        picture: '123',
+        picture: '/pictures/1.jpg',
         buildings: [1, 2]
     },
     {
@@ -20,7 +20,7 @@ var projects = [
         levels: 1,
         materialId: 2,
         square: 70,
-        picture: '123',
+        picture: '/pictures/2.jpg',
         buildings: [3, 4, 5]
     }
 ];
