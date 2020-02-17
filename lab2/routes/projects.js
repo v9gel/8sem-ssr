@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../db');
 
 // редирект на главную
 router.get('/', function(req, res, next) {
@@ -13,7 +14,29 @@ router.get('/add', function(req, res, next) {
 
 // страница проекта
 router.get('/:id', function(req, res, next) {
-  res.json(req.params.id);
+  db.Projects.findById(req.params.id, {
+    attributes: ['id', 'name', 'body', 'square', 'levels', 'picture'],
+    include: [
+      {
+        model: db.Materials,
+        attributes: ['id', 'name'],
+      },
+      {
+        model: db.Buildings,
+        as: 'buildings',
+        required: false,
+        attributes: ['id', 'name'],
+        through: { attributes: [] }
+      }
+    ]
+  })
+  .then(project => {
+    project = JSON.parse(JSON.stringify(project));
+    res.render('project_view', { title: 'Проект ' + project.name, project});
+  }).catch(() => {
+        res.json(404);
+      }
+  );
 });
 
 // страница редактирования проекта

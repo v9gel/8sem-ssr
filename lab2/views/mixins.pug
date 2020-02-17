@@ -12,3 +12,23 @@ mixin project(project, isAdmin)
                 a.btn.btn-primary(href='/projects/' + project.id + '/edit') Изменить
                 a.btn.btn-dark(href='/projects/' + project.id + '/delete') Удалить
     hr
+
+mixin project_view(project)
+    h1.my-4
+        | Проект #{project.name}
+        small Подробный просмотр
+    .row
+        .col-md-4
+            h3.my-3 Описание проекта
+            p= project.body
+            h3.my-3 Характеристики
+            ul
+                li Материал - #{project.material.name}
+                li Этажность - #{project.levels}
+                li Площадь - #{project.square} м²
+            h3.my-3 Постройки
+            ul
+                each building in project.buildings
+                    li= building.name
+        .col-md-8
+            img.img-fluid(src=project.picture, alt=project.name)

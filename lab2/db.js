@@ -51,7 +51,8 @@ const Materials = sequelize.define("materials", {
         allowNull: false
     }
 });
-Materials.hasMany(Projects);
+// Materials.hasMany(Projects);
+Projects.belongsTo(Materials);
 
 const Buildings = sequelize.define("buildings", {
     id: {
