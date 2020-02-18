@@ -28,21 +28,21 @@ var projects = [
 materials.map(material => {
     Materials.create({
         name: material
-    }).then(res=>{
+    }).then(res => {
         console.log(res);
-    }).catch(err=>console.log(err));
+    }).catch(err => console.log(err));
 });
 
 buildings.map(building => {
     Buildings.create({
         name: building
-    }).then(res=>{
+    }).then(res => {
         console.log(res);
-    }).catch(err=>console.log(err));
+    }).catch(err => console.log(err));
 });
 
 projects.map(project => {
     Projects.create(project).then(_project => {
         _project.setBuildings(project.buildings);
-    }).catch(err=>console.log(err));
+    }).catch(err => console.log(err));
 });

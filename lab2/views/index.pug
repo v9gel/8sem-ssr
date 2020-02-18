@@ -2,12 +2,12 @@ extends layout
 include  mixins
 
 block content
-  h1.my-4
-    if !isAdmin
-      | Проекты
-    if isAdmin
-      | Админка
-      a.btn.btn-primary.mb-2(href='/projects/add') Новый проект
-    small
-  each project in projects
-    +project(project, isAdmin)
+    h1.my-4
+        if !isAdmin
+            | Проекты
+        if isAdmin
+            | Админка
+            a.btn.btn-primary.mb-2(href='/projects/add') Новый проект
+        small
+    each project in projects
+        +project(project, isAdmin)

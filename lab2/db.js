@@ -72,10 +72,10 @@ const ProjectsBuildings = sequelize.define("projectsBuildings", {});
 Projects.belongsToMany(Buildings, {through: ProjectsBuildings});
 Buildings.belongsToMany(Projects, {through: ProjectsBuildings});
 
-sequelize.sync({force: true}).then(result=>{
+sequelize.sync({force: true}).then(result => {
     console.log(result);
     var generateDb = require('./generateDb');
-}).catch(err=> console.log(err));
+}).catch(err => console.log(err));
 
 module.exports.db = sequelize;
 module.exports.Materials = Materials;
