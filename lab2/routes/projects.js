@@ -3,6 +3,7 @@ var router = express.Router();
 var db = require('../db');
 const path = require('path');
 const {uuid} = require('uuidv4');
+var createError = require('http-errors');
 
 const convertResult = (result) => {
     return JSON.parse(JSON.stringify(result));
@@ -92,7 +93,7 @@ router.get('/:id', async (req, res, next) => {
     if (project) {
         res.render('project_view', {title: 'Проект ' + project.name, project});
     } else {
-        res.json(404);
+        next(createError(404));
     }
 });
 
