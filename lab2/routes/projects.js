@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../db');
+const path = require('path');
+const {uuid} = require('uuidv4');
 
 const convertResult = (result) => {
     return JSON.parse(JSON.stringify(result));
@@ -47,7 +49,14 @@ router.get('/', (req, res, next) => {
 
 // добавление проекта
 router.post('/', async (req, res, next) => {
-    req.body.picture = req.body.picture === '' ? 'http://placehold.it/750x300' : req.body.picture;
+    if (req.files === null) {
+        req.body.picture = 'http://placehold.it/750x300';
+    } else {
+        const newPictureName = uuid();
+        await req.files.picture.mv('./public/pictures/' + newPictureName + '.jpg');
+        req.body.picture = '/pictures/' + newPictureName + '.jpg';
+    }
+
     let project = await db.Projects.create(req.body);
     await project.setBuildings(req.body.buildings);
     res.redirect('/admin');
@@ -69,9 +78,6 @@ router.get('/add', async (req, res, next) => {
     };
     let materials = await getMaterials();
     let buildings = await getBuildings();
-
-    console.log({project});
-
     if (project) {
         res.render('project_edit', {title: 'Создание проекта ', project, materials, buildings, isEdit: false});
     } else {
@@ -90,15 +96,25 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-// страница обновления проекта
+// обновления проекта
 router.post('/:id', async (req, res, next) => {
+    if (req.files === null) {
+        let project = await getProject(req.params.id);
+        req.body.picture = project.picture;
+    } else {
+        const newPictureName = uuid();
+        await req.files.picture.mv('./public/pictures/' + newPictureName + '.jpg');
+        req.body.picture = '/pictures/' + newPictureName + '.jpg';
+    }
+
     await db.Projects.update(
         {
             name: req.body.name,
             body: req.body.body,
             levels: req.body.levels,
             square: req.body.square,
-            materialId: req.body.materialId
+            materialId: req.body.materialId,
+            picture: req.body.picture
         },
         {where: {id: req.params.id}}
     );

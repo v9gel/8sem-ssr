@@ -42,7 +42,7 @@ mixin project_edit(project, materials, buildings, isEdit)
         h1.my-4
             | Новый проект
             small Создание проекта
-    form(action='/projects/' + project.id, method='post')
+    form(action='/projects/' + project.id, method='post', encType='multipart/form-data')
         .form-group
             label(for='name') Название проекта
             input#name.form-control(type='text', name='name', value=project.name)
