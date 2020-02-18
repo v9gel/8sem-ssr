@@ -41,13 +41,42 @@ const getBuildings = async () => {
 };
 
 // редирект на главную
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     res.redirect('/');
 });
 
+// добавление проекта
+router.post('/', async (req, res, next) => {
+    req.body.picture = req.body.picture === '' ? 'http://placehold.it/750x300' : req.body.picture;
+    let project = await db.Projects.create(req.body);
+    await project.setBuildings(req.body.buildings);
+    res.redirect('/admin');
+});
+
 // страница добавления проекта
-router.get('/add', function (req, res, next) {
-    res.json('добавить проект');
+router.get('/add', async (req, res, next) => {
+    let project = {
+        id: '',
+        name: 'Название проекта',
+        body: 'Описание проекта',
+        levels: 1,
+        material: {
+            id: 1
+        },
+        square: 100,
+        picture: 'http://placehold.it/750x300',
+        buildings: [{id: 1}]
+    };
+    let materials = await getMaterials();
+    let buildings = await getBuildings();
+
+    console.log({project});
+
+    if (project) {
+        res.render('project_edit', {title: 'Создание проекта ', project, materials, buildings, isEdit: false});
+    } else {
+        res.json(404);
+    }
 });
 
 // страница проекта
@@ -88,7 +117,7 @@ router.get('/:id/edit', async (req, res, next) => {
     console.log({project});
 
     if (project) {
-        res.render('project_edit', {title: 'Проект ' + project.name, project, materials, buildings});
+        res.render('project_edit', {title: 'Проект ' + project.name, project, materials, buildings, isEdit: true});
     } else {
         res.json(404);
     }
@@ -101,7 +130,7 @@ router.get('/:id/delete', async (req, res, next) => {
             where: {
                 id: req.params.id
             }
-        })
+        });
 
     res.redirect('/admin');
 });

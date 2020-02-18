@@ -34,9 +34,14 @@ mixin project_view(project)
             img.img-fluid(src=project.picture, alt=project.name)
 
 mixin project_edit(project, materials, buildings, isEdit)
-    h1.my-4
-        | Проект #{project.name}
-        small Редактирование проекта
+    if isEdit
+        h1.my-4
+            | Проект #{project.name}
+            small Редактирование проекта
+    else
+        h1.my-4
+            | Новый проект
+            small Создание проекта
     form(action='/projects/' + project.id, method='post')
         .form-group
             label(for='name') Название проекта
@@ -77,4 +82,7 @@ mixin project_edit(project, materials, buildings, isEdit)
             .custom-file
                 input#picture.custom-file-input(type='file', name='picture')
                 label.custom-file-label(for='picture') Выбрать файл
-        button.btn.btn-primary.mb-2(type='submit') Сохранить
+        if isEdit
+            button.btn.btn-primary.mb-2(type='submit') Сохранить
+        else
+            button.btn.btn-primary.mb-2(type='submit') Создать
