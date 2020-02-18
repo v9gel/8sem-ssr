@@ -32,3 +32,49 @@ mixin project_view(project)
                     li= building.name
         .col-md-8
             img.img-fluid(src=project.picture, alt=project.name)
+
+mixin project_edit(project, materials, buildings, isEdit)
+    h1.my-4
+        | Проект #{project.name}
+        small Редактирование проекта
+    form
+        .form-group
+            label(for='name') Название проекта
+            input#name.form-control(type='text', value=project.name)
+        .form-group
+            label(for='body') Описание проекта
+            textarea#body.form-control(rows='3')= project.body
+        .form-group
+            label(for='square') Площадь
+            input#square.form-control(type='text', value=project.square)
+        .form-group
+            label(for='levels') Количество этажей
+            select#levels.form-control
+                each level in [1, 2, 3, 4, 5]
+                    if project.levels === level
+                        option(selected)= level
+                    else
+                        option= level
+        .form-group
+            label(for='material') Основной материал
+            select#material.form-control
+                each material in materials
+                    if project.material.id === material.id
+                        option(selected)= material.name
+                    else
+                        option= material.name
+        .form-group
+            label(for='object') Постройки
+            select#object.form-control(multiple='')
+                each building in buildings
+                    if project.buildings.some(element => element.id === building.id)
+                        option(selected)= building.name
+                    else
+                        option= building.name
+        .form-group
+            .text-center
+                img.img-fluid.rounded.mb-3(src=project.picture, alt=project.name)
+            .custom-file
+                input#picture.custom-file-input(type='file')
+                label.custom-file-label(for='picture') Выбрать файл
+        button.btn.btn-primary.mb-2(type='submit') Сохранить
