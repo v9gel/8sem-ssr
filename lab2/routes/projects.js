@@ -46,7 +46,15 @@ router.get('/:id/edit', function(req, res, next) {
 
 // страница удаления проекта
 router.get('/:id/delete', function(req, res, next) {
-  res.json(req.params.id + ' delete');
+  db.Projects.destroy(
+      {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(project => {
+        res.redirect('/admin');
+      });
 });
 
 module.exports = router;
