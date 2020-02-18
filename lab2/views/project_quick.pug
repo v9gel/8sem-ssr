@@ -1,0 +1,9 @@
+h5.my-3 Характеристики
+ul
+    li Материал - #{material.name}
+    li Этажность - #{levels}
+    li Площадь - #{square} м²
+h5.my-3 Постройки
+ul
+    each building in buildings
+        li= building.name

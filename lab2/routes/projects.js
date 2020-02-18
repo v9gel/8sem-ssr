@@ -97,6 +97,17 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+// информация о проекте во всплывающей подсказке
+router.get('/:id/quick', async (req, res, next) => {
+    let project = await getProject(req.params.id);
+
+    if (project) {
+        res.render('project_quick', project);
+    } else {
+        next(createError(404));
+    }
+});
+
 // обновления проекта
 router.post('/:id', async (req, res, next) => {
     if (req.files === null) {

@@ -6,8 +6,10 @@ mixin project(project, isAdmin)
         .col-md-5
             h3= project.name
             p= project.body
+            div(id='project' + project.id)
             if !isAdmin
                 a.btn.btn-primary(href='/projects/' + project.id) Подробнее
+                button.btn.btn-light(onclick='getQuickInfo('+ project.id +')') Быстрый просмотр
             if isAdmin
                 a.btn.btn-primary(href='/projects/' + project.id + '/edit') Изменить
                 a.btn.btn-dark(href='/projects/' + project.id + '/delete') Удалить
