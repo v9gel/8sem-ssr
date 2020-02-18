@@ -61,11 +61,29 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+// страница обновления проекта
+router.post('/:id', async (req, res, next) => {
+    await db.Projects.update(
+        {
+            name: req.body.name,
+            body: req.body.body,
+            levels: req.body.levels,
+            square: req.body.square,
+            materialId: req.body.materialId
+        },
+        {where: {id: req.params.id}}
+    );
+
+    let project = await db.Projects.findById(req.params.id);
+    await project.setBuildings(req.body.buildings);
+    res.redirect('/projects/' + req.params.id + '/edit');
+});
+
 // страница редактирования проекта
 router.get('/:id/edit', async (req, res, next) => {
     let project = await getProject(req.params.id);
     let materials = await getMaterials();
-    let buildings = await  getBuildings();
+    let buildings = await getBuildings();
 
     console.log({project});
 
@@ -74,28 +92,18 @@ router.get('/:id/edit', async (req, res, next) => {
     } else {
         res.json(404);
     }
-
-    // .then(project => {
-    //     project = JSON.parse(JSON.stringify(project));
-    //     console.log({project});
-    //     res.render('project_edit', {title: 'Редактирование ' + project.name, project});
-    // })
-    // .catch(() => {
-    //     res.json(404);
-    // });
 });
 
 // страница удаления проекта
-router.get('/:id/delete', function (req, res, next) {
-    db.Projects.destroy(
+router.get('/:id/delete', async (req, res, next) => {
+    await db.Projects.destroy(
         {
             where: {
                 id: req.params.id
             }
         })
-        .then(project => {
-            res.redirect('/admin');
-        });
+
+    res.redirect('/admin');
 });
 
 module.exports = router;

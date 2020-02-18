@@ -2,24 +2,23 @@ var express = require('express');
 var router = express.Router();
 var db = require('../db');
 
+const getProjects = async () => {
+    let projects = await db.Projects.findAll({
+        attributes: ['id', 'name', 'body', 'picture']
+    });
+    return projects;
+};
+
 // главная, список всех проектов
-router.get('/', function(req, res, next) {
-  db.Projects.findAll({
-    attributes: ['id', 'name', 'body', 'picture']
-  })
-  .then(projects => {
-    res.render('index', { title: 'Главная', projects, isAdmin: false });
-  });
+router.get('/', async (req, res, next) => {
+    let projects = await getProjects();
+    res.render('index', {title: 'Главная', projects, isAdmin: false});
 });
 
 // админка
-router.get('/admin', function(req, res, next) {
-  db.Projects.findAll({
-    attributes: ['id', 'name', 'body', 'picture'],
-  })
-  .then(projects => {
-    res.render('index', { title: 'Админка', projects, isAdmin: true });
-  });
+router.get('/admin', async (req, res, next) => {
+    let projects = await getProjects();
+    res.render('index', {title: 'Админка', projects, isAdmin: true});
 });
 
 module.exports = router;

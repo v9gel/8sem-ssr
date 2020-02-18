@@ -37,19 +37,19 @@ mixin project_edit(project, materials, buildings, isEdit)
     h1.my-4
         | Проект #{project.name}
         small Редактирование проекта
-    form
+    form(action='/projects/' + project.id, method='post')
         .form-group
             label(for='name') Название проекта
-            input#name.form-control(type='text', value=project.name)
+            input#name.form-control(type='text', name='name', value=project.name)
         .form-group
             label(for='body') Описание проекта
-            textarea#body.form-control(rows='3')= project.body
+            textarea#body.form-control(rows='3', name='body')= project.body
         .form-group
             label(for='square') Площадь
-            input#square.form-control(type='text', value=project.square)
+            input#square.form-control(type='text', name='square', value=project.square)
         .form-group
             label(for='levels') Количество этажей
-            select#levels.form-control
+            select#levels.form-control(name='levels')
                 each level in [1, 2, 3, 4, 5]
                     if project.levels === level
                         option(selected)= level
@@ -57,24 +57,24 @@ mixin project_edit(project, materials, buildings, isEdit)
                         option= level
         .form-group
             label(for='material') Основной материал
-            select#material.form-control
+            select#material.form-control(name='materialId')
                 each material in materials
                     if project.material.id === material.id
-                        option(selected)= material.name
+                        option(selected, value=material.id)= material.name
                     else
-                        option= material.name
+                        option(value=material.id)= material.name
         .form-group
             label(for='object') Постройки
-            select#object.form-control(multiple='')
+            select#object.form-control(multiple='', name='buildings')
                 each building in buildings
                     if project.buildings.some(element => element.id === building.id)
-                        option(selected)= building.name
+                        option(selected, value=building.id)= building.name
                     else
-                        option= building.name
+                        option(value=building.id)= building.name
         .form-group
             .text-center
                 img.img-fluid.rounded.mb-3(src=project.picture, alt=project.name)
             .custom-file
-                input#picture.custom-file-input(type='file')
+                input#picture.custom-file-input(type='file', name='picture')
                 label.custom-file-label(for='picture') Выбрать файл
         button.btn.btn-primary.mb-2(type='submit') Сохранить
