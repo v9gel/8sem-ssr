@@ -1,7 +1,7 @@
 include  mixins
 
 if projects.length === 0
-    h4 Нед подходящих проектов
+    h4 Нет подходящих проектов
 else
     each project in projects
         +project(project, false)
