@@ -53,7 +53,7 @@ router.post('/', async (req, res, next) => {
     if (req.files === null) {
         req.body.picture = 'http://placehold.it/750x300';
     } else {
-        const newPictureName = uuid();
+        const newPictureName = 'img' + uuid();
         await req.files.picture.mv('./public/pictures/' + newPictureName + '.jpg');
         req.body.picture = '/pictures/' + newPictureName + '.jpg';
     }
@@ -136,7 +136,7 @@ router.post('/:id', async (req, res, next) => {
         let project = await getProject(req.params.id);
         req.body.picture = project.picture;
     } else {
-        const newPictureName = uuid();
+        const newPictureName = 'img' + uuid();
         await req.files.picture.mv('./public/pictures/' + newPictureName + '.jpg');
         req.body.picture = '/pictures/' + newPictureName + '.jpg';
     }
