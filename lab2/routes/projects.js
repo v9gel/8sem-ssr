@@ -86,6 +86,28 @@ router.get('/add', async (req, res, next) => {
     }
 });
 
+// фильтрация по материалу
+router.post('/material', async (req, res, next) => {
+    let projects;
+    if (req.body.materialId !== 'all') {
+        projects = await db.Projects.findAll({
+            where: {
+                materialId: req.body.materialId
+            },
+            attributes: ['id', 'name', 'body', 'picture']
+        });
+    } else {
+        projects = await db.Projects.findAll({
+            attributes: ['id', 'name', 'body', 'picture']
+        });
+    }
+
+    projects = convertResult(projects);
+    console.log({projects});
+
+    res.render('project_filtred', {projects});
+});
+
 // страница проекта
 router.get('/:id', async (req, res, next) => {
     let project = await getProject(req.params.id);

@@ -6,8 +6,23 @@ block content
         if !isAdmin
             | Проекты
         if isAdmin
-            | Админка
+            | Админк
             a.btn.btn-primary.mb-2(href='/projects/add') Новый проект
         small
-    each project in projects
-        +project(project, isAdmin)
+
+    .form-row.align-items-center.mb-3
+        .col-auto
+            .form-check.form-check-inline
+                input#radioall.form-check-input(type='radio', name='filterMaterial', value='all')
+                label.form-check-label(for='radioall') все
+        each material in materials
+            .col-auto
+                .form-check.form-check-inline
+                    input.form-check-input(id='radio' + material.id, type='radio', name='filterMaterial', value=material.id)
+                    label.form-check-label(for='radio' + material.id)= material.name
+        .col-auto
+            button.btn.btn-primary(onclick='filterProjects()') Фильтровать
+
+    #projects
+        each project in projects
+            +project(project, isAdmin)
