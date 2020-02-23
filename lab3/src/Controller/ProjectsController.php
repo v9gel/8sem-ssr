@@ -30,7 +30,7 @@ class ProjectsController extends AbstractController
      */
     public function admin(ProjectsRepository $projectsRepository): Response
     {
-        return $this->render('projects/index.html.twig', [
+        return $this->render('projects/admin.html.twig', [
             'projects' => $projectsRepository->findAll(),
         ]);
     }

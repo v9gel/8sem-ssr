@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Админка - все проекты{% endblock %}
+
+{% block body %}
+    <h1 class="my-4">
+        Проекты
+        <small></small>
+    </h1>
+
+    {% for project in projects %}
+        <div class="row">
+            <div class="col-md-7">
+                <a href="#">
+                <img
+                    class="img-fluid rounded mb-3 mb-md-0"
+                    src="{{ project.picture }}"
+                    alt="{{ project.name }}"
+                />
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.body }}</p>
+                <a class="btn btn-primary" href="{{ path('projects_edit', {'id': project.id}) }}">Изменить</a>
+                {{ include('projects/_delete_form.html.twig') }}
+                {# <a class="btn btn-primary" href="{{ path('projects_show', {'id': project.id}) }}">Подробнее</a> #}
+            </div>
+        </div>
+        <hr />
+    {% else %}
+        <tr>
+            <td colspan="7">Проекты не найдены</td>
+        </tr>
+    {% endfor %}
+
+    {# <a href="{{ path('projects_new') }}">Create new</a> #}
+{% endblock %}
