@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/projects")
+ * @Route("/")
  */
 class ProjectsController extends AbstractController
 {
@@ -26,7 +26,17 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="projects_new", methods={"GET","POST"})
+     * @Route("/admin", name="projects_index", methods={"GET"})
+     */
+    public function admin(ProjectsRepository $projectsRepository): Response
+    {
+        return $this->render('projects/index.html.twig', [
+            'projects' => $projectsRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/projects/new", name="projects_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +59,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="projects_show", methods={"GET"})
+     * @Route("/projects/{id}", name="projects_show", methods={"GET"})
      */
     public function show(Projects $project): Response
     {
@@ -59,7 +69,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="projects_edit", methods={"GET","POST"})
+     * @Route("/projects/{id}/edit", name="projects_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Projects $project): Response
     {
@@ -79,7 +89,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="projects_delete", methods={"DELETE"})
+     * @Route("/projects/{id}", name="projects_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Projects $project): Response
     {
