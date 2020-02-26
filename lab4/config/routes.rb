@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'projects#index'
+  get '/admin' => 'projects#admin'
+  get 'projects/:id/edit' => 'projects#edit'
+  get 'projects/:id/delete' => 'projects#delete'
+  get 'projects/new' => 'projects#new'
+  get 'projects/:id' => 'projects#show'
 end
