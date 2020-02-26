@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Новый проект{% endblock %}
+
+{% block body %}
+    <h1 class="my-4">
+        Новый проект
+        <small>Создание проекта</small>
+    </h1>
+
+    {{ include('projects/_form.html.twig') }}
+
+{% endblock %}

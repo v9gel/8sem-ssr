@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Buildings{% endblock %}
+
+{% block body %}
+    <h1>Create new Buildings</h1>
+
+    {{ include('buildings/_form.html.twig') }}
+
+    <a href="{{ path('buildings_index') }}">back to list</a>
+{% endblock %}

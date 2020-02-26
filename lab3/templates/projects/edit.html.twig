@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ project.name }} - редактирование{% endblock %}
+
+{% block body %}
+    <h1 class="my-4">
+        Проект {{ project.name }}
+        <small>Редактирование проекта</small>
+    </h1>
+
+    {{ include('projects/_form.html.twig', {'button_label': 'Обновить'}) }}
+{% endblock %}
