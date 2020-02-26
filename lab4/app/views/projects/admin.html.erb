@@ -1,2 +1,26 @@
-<h1>Projects#admin</h1>
-<p>Find me in app/views/projects/admin.html.erb</p>
+<h1 class="my-4">
+  Проекты
+  <a class="btn btn-primary" href="/projects/new">Новый</a>
+</h1>
+
+<% @projects.each do |project| %>
+  <div class="row">
+    <div class="col-md-7">
+      <a href="#">
+        <img
+          class="img-fluid rounded mb-3 mb-md-0"
+          src="<%= project.picture %>"
+          alt=""
+          />
+      </a>
+    </div>
+    <div class="col-md-5">
+      <h3><%= project.name %></h3>
+      <p><%= project.body %></p>
+      <a class="btn btn-primary" href="/projects/<%= project.id %>/edit">Изменить</a>
+      <a class="btn btn-dark" href="/projects/<%= project.id %>/delete">Удалить</a>
+    </div>
+  </div>
+
+  <hr />
+<% end %>
