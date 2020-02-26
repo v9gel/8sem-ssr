@@ -28,7 +28,7 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="projects_index", methods={"GET"})
+     * @Route("/admin", name="projects_admin", methods={"GET"})
      */
     public function admin(ProjectsRepository $projectsRepository): Response
     {
