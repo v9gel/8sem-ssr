@@ -96,6 +96,27 @@ class ProjectsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form->get('picture')->getData();
+            if ($pictureFile) {
+                $newFilename = uniqid('img').'.'.$pictureFile->guessExtension();
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+                $project->setPicture('/pictures/'.$newFilename);
+            }
+            else{
+//                $project->setPicture('http://placehold.it/900x300');
+            }
+
+
+
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('projects_index');
