@@ -1,4 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="form-group">
+        <div class="text-center">
+            <img class="img-fluid" src="{{ project.picture|default('http://placehold.it/900x300') }}" alt="{{ project.name|default('Новый проект') }}" />
+        </div>
+    </div>
+    <button class="btn btn-primary mb-2">{{ button_label|default('Сохранить') }}</button>
 {{ form_end(form) }}

@@ -6,6 +6,7 @@
     <h1 class="my-4">
         Проекты
         <small></small>
+        <a class="btn btn-primary" href="/projects/new">Новый</a>
     </h1>
 
     {% for project in projects %}
@@ -24,7 +25,6 @@
                 <p>{{ project.body }}</p>
                 <a class="btn btn-primary" href="{{ path('projects_edit', {'id': project.id}) }}">Изменить</a>
                 {{ include('projects/_delete_form.html.twig') }}
-                {# <a class="btn btn-primary" href="{{ path('projects_show', {'id': project.id}) }}">Подробнее</a> #}
             </div>
         </div>
         <hr />
@@ -33,6 +33,4 @@
             <td colspan="7">Проекты не найдены</td>
         </tr>
     {% endfor %}
-
-    {# <a href="{{ path('projects_new') }}">Create new</a> #}
 {% endblock %}
