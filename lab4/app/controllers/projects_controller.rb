@@ -18,6 +18,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @project = Project.find(params[:id])
+    @buildings_id = ProjectBuilding.where(project_id: params[:id])
+
+    @buildings = Building.all
+    @materials = Material.all
   end
 
   def delete

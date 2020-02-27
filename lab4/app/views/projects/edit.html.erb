@@ -1,2 +1,54 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<h1 class="my-4">
+  Проект Z100
+  <small>Редактирование проекта</small>
+</h1>
+
+<form>
+  <div class="form-group">
+    <label for="name">Название проекта</label>
+    <input type="text" class="form-control" id="name" value="<%= @project.name %>" />
+  </div>
+  <div class="form-group">
+    <label for="body">Описание проекта</label>
+    <textarea class="form-control" id="body" rows="3"><%= @project.body %></textarea>
+  </div>
+  <div class="form-group">
+    <label for="level">Количество этажей</label>
+    <input type="number" class="form-control" id="levels" value="<%= @project.levels %>" />
+  </div>
+  <div class="form-group">
+    <label for="square">Площадь</label>
+    <input type="number" class="form-control" id="square" value="<%= @project.square %>" />
+  </div>
+  <div class="form-group">
+    <label for="material">Основной материал</label>
+    <select class="form-control" id="material">
+      <% @materials.each do |material| %>
+        <option <%= 'selected' if @project.material_id == material.id %>><%= material.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="object">Постройки</label>
+    <select multiple class="form-control" id="object">
+      <% @buildings.each do |building| %>
+        <option <%= 'selected' if @buildings_id.any? {|element| element.building_id == building.id} %>><%= building.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <div class="text-center">
+      <img
+        class="img-fluid rounded mb-3"
+        src="<%= @project.picture %>"
+        alt=""
+        />
+    </div>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="customFile" />
+      <label class="custom-file-label" for="customFile">Выбрать файл</label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Сохранить</button>
+</form>
