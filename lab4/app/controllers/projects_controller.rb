@@ -21,6 +21,15 @@ class ProjectsController < ApplicationController
   end
 
   def delete
+    @buildings = ProjectBuilding.where(project_id: params[:id])
+    @buildings.each do  |building|
+      building.destroy
+    end
+
+    @project = Project.find(params[:id])
+    @project.destroy
+
+    redirect_to '/admin'
   end
 
   def new
