@@ -1,14 +1,17 @@
 class ProjectsController < ApplicationController
   def index
+    @title = 'Главная'
     @projects = Project.all
   end
 
   def admin
+    @title = 'Админка'
     @projects = Project.all
   end
 
   def show
     @project = Project.find(params[:id])
+    @title = @project.name + ' - простотр'
     @material = Material.find(@project.material_id)
     @buildings = []
 
@@ -19,6 +22,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+    @title = @project.name + ' - редактирование'
     @buildings_id = []
     ProjectBuilding.where(project_id: params[:id]).each do |b|
       @buildings_id.push(b.building_id)
@@ -47,12 +51,9 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    #@project = Project.new
-    # @materials = Material.all
-    # @buildings = Building.all
-    # @project_buildings = @project.proj
+    @title = 'Новый проект'
 
-
+    @project = Project.new
     @buildings = []
     Building.all.each do |building|
       @buildings.push([building.name, building.id])
