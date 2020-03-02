@@ -19,7 +19,10 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    # @buildings_id = ProjectBuilding.where(project_id: params[:id])
+    @buildings_id = []
+    ProjectBuilding.where(project_id: params[:id]).each do |b|
+      @buildings_id.push(b.building_id)
+    end
 
     @buildings = []
     Building.all.each do |building|
@@ -89,6 +92,18 @@ class ProjectsController < ApplicationController
     end
 
     if @project.save
+      @buildings = ProjectBuilding.where(project_id: params[:id])
+      @buildings.each do  |building|
+        building.destroy
+      end
+
+      params[:project][:buildings].each do |building|
+        unless building.empty?
+          b = ProjectBuilding.new(:project_id => @project.id, :building_id => building)
+          b.save
+        end
+      end
+
       redirect_to '/admin'
     else
       redirect_to '/projects/new'

@@ -9,7 +9,7 @@
   <%= f.number_field :levels, label: 'Количество этажей' %>
   <%= f.number_field :square, label: 'Площадь' %>
   <%= f.select :material_id, @materials, {label: 'Материал'} %>
-  <%= f.select :buildings, @buildings, {label: 'Постройки'}, :multiple => 'true'%>
+  <%= f.select :buildings, @buildings, {label: 'Строения', selected: @buildings_id}, :multiple => 'true'%>
   <div class="text-center">
     <img
       class="img-fluid rounded mb-3"
