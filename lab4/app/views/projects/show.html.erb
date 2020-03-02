@@ -1,0 +1,28 @@
+<h1 class="my-4">
+  Проект <%= @project.name %>
+  <small>Подробный просмотр</small>
+</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3 class="my-3">Описание проекта</h3>
+    <p>
+      <%= @project.body %>
+    </p>
+    <h3 class="my-3">Характеристики</h3>
+    <ul>
+      <li>Материал - <%= @material.name %></li>
+      <li>Этажность - <%= @project.levels %></li>
+      <li>Площадь - <%= @project.square %> м²</li>
+    </ul>
+    <h3 class="my-3">Постройки</h3>
+    <ul>
+      <% @buildings.each do |building| %>
+        <li><%= building %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <img class="img-fluid" src="<%= @project.picture %>" alt="<%= @project.name %>" />
+  </div>
+</div>

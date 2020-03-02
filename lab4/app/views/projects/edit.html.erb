@@ -1,0 +1,22 @@
+<h1 class="my-4">
+  <%= @project.name %>
+  <small>Редактирование проекта</small>
+</h1>
+
+<%= bootstrap_form_for('project') do |f| %>
+  <%= f.text_field :name, label: 'Название' %>
+  <%= f.text_area :body, label: 'Описание' %>
+  <%= f.number_field :levels, label: 'Количество этажей' %>
+  <%= f.number_field :square, label: 'Площадь' %>
+  <%= f.select :material_id, @materials, {label: 'Материал'} %>
+  <%= f.select :buildings, @buildings, {label: 'Строения', selected: @buildings_id}, :multiple => 'true'%>
+  <div class="text-center">
+    <img
+      class="img-fluid rounded mb-3"
+      src="<%= @project.picture %>"
+      alt=""
+      />
+  </div>
+  <%= f.file_field :picture, {label: 'Изображение'} %>
+  <%= f.submit 'Обновить', {class: 'btn btn-primary'}%>
+<% end %>

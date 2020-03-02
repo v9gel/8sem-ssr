@@ -1,0 +1,75 @@
+<h1 class="my-4">
+  Новый проект
+  <small>Редактирование проекта</small>
+</h1>
+
+<%= bootstrap_form_for('project') do |f| %>
+  <%= f.text_field :name, label: 'Название' %>
+  <%= f.text_area :body, label: 'Описание' %>
+  <%= f.number_field :levels, label: 'Количество этажей' %>
+  <%= f.number_field :square, label: 'Площадь' %>
+  <%= f.select :material_id, @materials, {label: 'Материал'} %>
+  <%= f.select :buildings, @buildings, {label: 'Строения'}, :multiple => 'true'%>
+  <div class="text-center">
+    <img
+      class="img-fluid rounded mb-3"
+      src="http://placehold.it/900x300"
+      alt=""
+      />
+  </div>
+  <%= f.file_field :picture, {label: 'Изображение'} %>
+  <%= f.submit 'Создать', {class: 'btn btn-primary'}%>
+<% end %>
+
+<%#= form_with(url: "/projects") do %>
+<!--  <div class="form-group">-->
+<!--    <label for="name">Название проекта</label>-->
+<!--    <input type="text" class="form-control" id="name" />-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <label for="body">Описание проекта</label>-->
+<!--    <textarea class="form-control" id="body" rows="3"></textarea>-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <label for="level">Количество этажей</label>-->
+<!--    <input type="number" class="form-control" id="levels" value="" />-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <label for="square">Площадь</label>-->
+<!--    <input type="number" class="form-control" id="square" value="" />-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <label for="material">Основной материал</label>-->
+<!--    <select class="form-control" id="material">-->
+      <%# @materials.each do |material| %>
+<!--        <option><%#= material.name %></option>-->
+      <%# end %>
+<!--    </select>-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <label for="object">Постройки</label>-->
+<!--    <select multiple class="form-control" id="object">-->
+      <%# @buildings.each do |building| %>
+<!--        <option><%#= building.name %></option>-->
+      <%# end %>
+<!--    </select>-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <div class="text-center">-->
+<!--      <img-->
+<!--        class="img-fluid rounded mb-3"-->
+<!--        src="http://placehold.it/900x300"-->
+<!--        alt=""-->
+<!--        />-->
+<!--    </div>-->
+<!--    <div class="custom-file">-->
+<!--      <input type="file" class="custom-file-input" id="customFile" />-->
+<!--      <label class="custom-file-label" for="customFile">Выбрать файл</label>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <button type="submit" class="btn btn-primary mb-2">Сохранить</button>-->
+  <%#= label_tag(:q, "Search for:") %>
+  <%#= text_field_tag(:q) %>
+  <%#= submit_tag("Сохранить") %>
+<%# end %>
