@@ -44,7 +44,12 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    # @project = Project.new
+    #@project = Project.new
+    # @materials = Material.all
+    # @buildings = Building.all
+    # @project_buildings = @project.proj
+
+
     @buildings = []
     Building.all.each do |building|
       @buildings.push([building.name, building.id])
@@ -58,18 +63,13 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    # uploaded_file = params[:picture]
-    # File.open(Rails.root.join('app', 'public', 'pictures', uploaded_file.original_filename), 'wb') do |file|
-    #   file.write(uploaded_file.read)
-    # end
-
-    # buildings_id = project_params[:buildings]
-    # print buildings_id
-    # buildings_id.each do |id|
-    #   ProjectBuilding.new(project_id: id, buildings_id: projects.id)
-    # end
-
     if @project.save
+      params[:project][:buildings].each do |building|
+        unless building.empty?
+          b = ProjectBuilding.new(:project_id => @project.id, :building_id => building)
+          b.save
+        end
+      end
       redirect_to '/admin'
     else
       redirect_to '/projects/new'
