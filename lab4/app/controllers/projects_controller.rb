@@ -19,10 +19,16 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    @buildings_id = ProjectBuilding.where(project_id: params[:id])
+    # @buildings_id = ProjectBuilding.where(project_id: params[:id])
 
-    @buildings = Building.all
-    @materials = Material.all
+    @buildings = []
+    Building.all.each do |building|
+      @buildings.push([building.name, building.id])
+    end
+    @materials = []
+    Material.all.each do |material|
+      @materials.push([material.name, material.id])
+    end
   end
 
   def delete
@@ -62,6 +68,25 @@ class ProjectsController < ApplicationController
     # buildings_id.each do |id|
     #   ProjectBuilding.new(project_id: id, buildings_id: projects.id)
     # end
+
+    if @project.save
+      redirect_to '/admin'
+    else
+      redirect_to '/projects/new'
+    end
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    @project.update(name: project_params[:name])
+    @project.update(body: project_params[:body])
+    @project.update(levels: project_params[:levels])
+    @project.update(square: project_params[:square])
+    @project.update(material_id: project_params[:material_id])
+
+    if project_params[:picture] != nil
+      @project.update(picture: project_params[:picture])
+    end
 
     if @project.save
       redirect_to '/admin'
